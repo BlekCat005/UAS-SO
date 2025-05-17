@@ -30,10 +30,11 @@ export default function DeadlockRecoveryPage() {
               <Card>
                 <CardHeader>
                   <CardTitle className="mx-auto">
-                    Process Termination Recovery
+                    Pemulihan dengan Process Termination
                   </CardTitle>
                   <CardDescription className="mx-auto">
-                    Visualize how terminating processes can resolve deadlocks
+                    Visualisasikan bagaimana penghentian proses dapat
+                    menyelesaikan deadlock
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -50,10 +51,11 @@ export default function DeadlockRecoveryPage() {
               <Card>
                 <CardHeader>
                   <CardTitle className="mx-auto">
-                    Resource Preemption Recovery
+                    Pemulihan dengan Resource Preemption
                   </CardTitle>
                   <CardDescription className="mx-auto">
-                    Visualize how preempting resources can resolve deadlocks
+                    Visualisasikan bagaimana pengambilalihan resource dapat
+                    menyelesaikan deadlock
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -67,15 +69,15 @@ export default function DeadlockRecoveryPage() {
 
       <Card className="mt-8">
         <CardHeader>
-          <CardTitle>About Deadlock Recovery</CardTitle>
+          <CardTitle>Tentang Deadlock Recovery</CardTitle>
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground">
-            Deadlock recovery is a strategy where the system allows deadlocks to
-            occur but has mechanisms to recover from them when they are
-            detected. Recovery methods include process termination and resource
-            preemption, each with their own advantages and disadvantages in
-            terms of overhead and system impact.
+            Deadlock recovery adalah strategi di mana sistem membiarkan deadlock
+            terjadi, tetapi memiliki mekanisme untuk memulihkannya saat
+            terdeteksi. Metode pemulihan meliputi process termination dan
+            resource preemption, masing-masing dengan kelebihan dan
+            kekurangannya dalam hal beban sistem dan dampaknya.
           </p>
         </CardContent>
       </Card>

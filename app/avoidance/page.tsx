@@ -127,7 +127,7 @@ export default function DeadlockAvoidancePage() {
                 Simulasi Algoritma Banker
               </CardTitle>
               <CardDescription className="mx-auto">
-                Visualisasi Algoritma Banker untuk penghindaran deadlock
+                Visualisasi Algoritma Banker untuk deadlock avoidance
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -201,14 +201,14 @@ export default function DeadlockAvoidancePage() {
 
       <Card className="mt-8">
         <CardHeader>
-          <CardTitle>Tentang Penghindaran Deadlock</CardTitle>
+          <CardTitle>Tentang Deadlock Avoidance</CardTitle>
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground">
-            Penghindaran deadlock adalah strategi di mana sistem secara dinamis
+            Deadlock avoidance adalah strategi di mana sistem secara dinamis
             memeriksa permintaan alokasi sumber daya untuk memastikan bahwa
             mengabulkan permintaan tidak akan menyebabkan deadlock. Algoritma
-            Banker adalah algoritma penghindaran deadlock yang umum yang
+            Banker adalah algoritma deadlock avoidance yang umum yang
             mempertahankan informasi tentang sumber daya yang tersedia, sumber
             daya yang dialokasikan, dan permintaan maksimum untuk menentukan
             apakah sistem berada dalam keadaan aman.

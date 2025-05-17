@@ -28,11 +28,11 @@ export default function DeadlockDetectionPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Tentang Deteksi Deadlock</CardTitle>
+            <CardTitle>Tentang Deadlock Detection</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground mb-4">
-              Deteksi deadlock adalah strategi di mana sistem mengizinkan
+              Deadlock detection adalah strategi di mana sistem mengizinkan
               deadlock terjadi tetapi memiliki mekanisme untuk mendeteksinya
               ketika terjadi. Algoritma deteksi biasanya menggunakan resource
               allocation graph atau struktur data serupa untuk mengidentifikasi

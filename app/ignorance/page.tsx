@@ -21,7 +21,8 @@ export default function DeadlockIgnorancePage() {
                 Deadlock Ignorance (Ostrich Algorithm)
               </CardTitle>
               <CardDescription className="mx-auto">
-                Visualize the "pretend it doesn't exist" approach to deadlocks
+                Visualisasikan bagaimana sistem membiarkan deadlock terjadi
+                tanpa penanganan
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -33,31 +34,31 @@ export default function DeadlockIgnorancePage() {
 
       <Card className="mt-8">
         <CardHeader>
-          <CardTitle>Pros and Cons of Deadlock Ignorance</CardTitle>
+          <CardTitle>Keuntungan dan Kerugian</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <h3 className="text-lg font-medium mb-2 text-green-600">
-                Advantages
+                Keuntungan
               </h3>
               <ul className="list-disc pl-5 text-muted-foreground space-y-2">
-                <li>No overhead for prevention or detection</li>
-                <li>Simple implementation</li>
-                <li>Maximum resource utilization</li>
-                <li>Good performance when deadlocks are rare</li>
+                <li>Tidak ada overhead untuk pencegahan atau deteksi</li>
+                <li>Implementasi yang sederhana</li>
+                <li>Penggunaan resource maksimal</li>
+                <li>Kinerja baik ketika deadlock jarang terjadi</li>
               </ul>
             </div>
 
             <div>
               <h3 className="text-lg font-medium mb-2 text-red-600">
-                Disadvantages
+                Kerugian
               </h3>
               <ul className="list-disc pl-5 text-muted-foreground space-y-2">
-                <li>No protection against deadlocks</li>
-                <li>Difficult to debug when deadlocks occur</li>
-                <li>May lead to unpredictable system behavior</li>
-                <li>Not suitable for critical systems</li>
+                <li>Tidak ada perlindungan terhadap deadlock</li>
+                <li>Sulit untuk debug saat deadlock terjadi</li>
+                <li>Dapat menyebabkan perilaku sistem yang tidak terduga</li>
+                <li>Tidak cocok untuk sistem kritis</li>
               </ul>
             </div>
           </div>

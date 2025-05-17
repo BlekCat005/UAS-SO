@@ -611,7 +611,6 @@ export function ResourceAllocationGraph() {
       ctx.fillStyle = node.color;
       ctx.fill();
 
-      // Draw node label
       ctx.fillStyle = "#ffffff";
       ctx.font = "14px Arial";
       ctx.textAlign = "center";
@@ -619,14 +618,12 @@ export function ResourceAllocationGraph() {
       ctx.fillText(node.id, node.x, node.y);
     });
 
-    // Draw legend
     ctx.font = "12px Arial";
     ctx.fillStyle = "#000000";
     ctx.textAlign = "left";
 
     ctx.fillText("Legend:", 480, 100);
 
-    // Process node
     ctx.beginPath();
     ctx.arc(500, 120, 10, 0, 2 * Math.PI);
     ctx.fillStyle = "#3b82f6";
@@ -634,7 +631,6 @@ export function ResourceAllocationGraph() {
     ctx.fillStyle = "#000000";
     ctx.fillText("Process", 520, 120);
 
-    // Resource node
     ctx.beginPath();
     ctx.rect(490, 140, 20, 20);
     ctx.fillStyle = "#10b981";
@@ -642,7 +638,6 @@ export function ResourceAllocationGraph() {
     ctx.fillStyle = "#000000";
     ctx.fillText("Resource", 520, 150);
 
-    // Request edge
     ctx.beginPath();
     ctx.moveTo(490, 180);
     ctx.lineTo(510, 180);
@@ -652,7 +647,6 @@ export function ResourceAllocationGraph() {
     ctx.fillStyle = "#000000";
     ctx.fillText("Request", 520, 180);
 
-    // Allocation edge
     ctx.beginPath();
     ctx.moveTo(490, 200);
     ctx.lineTo(510, 200);
@@ -662,7 +656,6 @@ export function ResourceAllocationGraph() {
     ctx.fillStyle = "#000000";
     ctx.fillText("Allocation", 520, 200);
 
-    // Tampilkan status deadlock jika terdeteksi
     if (isDeadlockDetected) {
       ctx.font = "16px Arial";
       ctx.fillStyle = "#ef4444";
