@@ -1,13 +1,28 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowRight, Lock, ShieldAlert, ShieldCheck, AlertTriangle, XCircle } from "lucide-react"
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  ArrowRight,
+  Lock,
+  ShieldAlert,
+  ShieldCheck,
+  AlertTriangle,
+  XCircle,
+} from "lucide-react";
 
 export default function Home() {
   return (
     <main className="container mx-auto px-4 py-8">
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold tracking-tight mb-4">Deadlock Simulation System</h1>
+        <h1 className="text-4xl font-bold tracking-tight mb-4">
+          Deadlock Simulation System
+        </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
           Interactive visualizations of deadlock concepts in operating systems
         </p>
@@ -50,10 +65,19 @@ export default function Home() {
         />
       </div>
     </main>
-  )
+  );
 }
 
-function SimulationCard({ title, description, icon, href }) {
+interface PropTypes {
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  href: string;
+}
+
+function SimulationCard(props: PropTypes) {
+  const { title, description, icon, href } = props;
+
   return (
     <Card className="hover:shadow-lg transition-shadow">
       <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -61,7 +85,9 @@ function SimulationCard({ title, description, icon, href }) {
         {icon}
       </CardHeader>
       <CardContent>
-        <CardDescription className="text-sm mb-4">{description}</CardDescription>
+        <CardDescription className="text-sm mb-4">
+          {description}
+        </CardDescription>
         <Link href={href}>
           <Button className="w-full">
             Explore <ArrowRight className="ml-2 h-4 w-4" />
@@ -69,5 +95,5 @@ function SimulationCard({ title, description, icon, href }) {
         </Link>
       </CardContent>
     </Card>
-  )
+  );
 }
