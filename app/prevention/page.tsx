@@ -43,8 +43,8 @@ export default function DeadlockPreventionPage() {
 
   return (
     <main className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">Deadlock Prevention</h1>
-
+      <h1 className="text-3xl font-bold mb-6">Pencegahan Deadlock</h1>{" "}
+      {/* Translation */}
       <Tabs defaultValue="mutual-exclusion">
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="mutual-exclusion">Mutual Exclusion</TabsTrigger>
@@ -59,12 +59,14 @@ export default function DeadlockPreventionPage() {
               <Card>
                 <CardHeader>
                   <CardTitle className="mx-auto">
-                    Mutual Exclusion Prevention
-                  </CardTitle>
+                    Pencegahan Mutual Exclusion
+                  </CardTitle>{" "}
+                  {/* Translation */}
                   <CardDescription className="mx-auto">
-                    Visualize how eliminating mutual exclusion prevents
-                    deadlocks
-                  </CardDescription>
+                    Visualisasikan bagaimana menghilangkan mutual exclusion
+                    mencegah deadlock
+                  </CardDescription>{" "}
+                  {/* Translation */}
                 </CardHeader>
                 <CardContent>
                   <PreventionVisualization type="mutual-exclusion" />
@@ -80,12 +82,14 @@ export default function DeadlockPreventionPage() {
               <Card>
                 <CardHeader>
                   <CardTitle className="mx-auto">
-                    Hold and Wait Prevention
-                  </CardTitle>
+                    Pencegahan Hold and Wait
+                  </CardTitle>{" "}
+                  {/* Translation */}
                   <CardDescription className="mx-auto">
-                    Visualize how preventing hold and wait condition prevents
-                    deadlocks
-                  </CardDescription>
+                    Visualisasikan bagaimana mencegah kondisi hold and wait
+                    mencegah deadlock
+                  </CardDescription>{" "}
+                  {/* Translation */}
                 </CardHeader>
                 <CardContent>
                   <PreventionVisualization type="hold-wait" />
@@ -101,11 +105,14 @@ export default function DeadlockPreventionPage() {
               <Card>
                 <CardHeader>
                   <CardTitle className="mx-auto">
-                    No Preemption Prevention
-                  </CardTitle>
+                    Pencegahan No Preemption
+                  </CardTitle>{" "}
+                  {/* Translation */}
                   <CardDescription className="mx-auto">
-                    Visualize how allowing preemption prevents deadlocks
-                  </CardDescription>
+                    Visualisasikan bagaimana mengizinkan preemption mencegah
+                    deadlock
+                  </CardDescription>{" "}
+                  {/* Translation */}
                 </CardHeader>
                 <CardContent>
                   <PreventionVisualization type="no-preemption" />
@@ -121,11 +128,14 @@ export default function DeadlockPreventionPage() {
               <Card>
                 <CardHeader>
                   <CardTitle className="mx-auto">
-                    Circular Wait Prevention
-                  </CardTitle>
+                    Pencegahan Circular Wait
+                  </CardTitle>{" "}
+                  {/* Translation */}
                   <CardDescription className="mx-auto">
-                    Visualize how preventing circular wait prevents deadlocks
-                  </CardDescription>
+                    Visualisasikan bagaimana mencegah circular wait mencegah
+                    deadlock
+                  </CardDescription>{" "}
+                  {/* Translation */}
                 </CardHeader>
                 <CardContent>
                   <PreventionVisualization type="circular-wait" />
