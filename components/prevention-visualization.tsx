@@ -485,79 +485,159 @@ export function PreventionVisualization({
     ctx.textAlign = "center";
     ctx.fillText("Circular Wait Prevention", canvas.width / 2, 30);
 
-    // Left side: With circular wait (deadlock possible)
+    // Sisi Kiri: Dengan Circular Wait (Deadlock Mungkin Terjadi)
     ctx.font = "16px Arial";
     ctx.fillStyle = "#000000";
     ctx.textAlign = "center";
     ctx.fillText("With Circular Wait", canvas.width / 4, 60);
 
-    // Draw processes in a circle
     const processRadius = 25;
-    const centerX = canvas.width / 4;
-    const centerY = 170;
-    const orbitRadius = 80;
+    const resourceSize = 30;
+    const leftCenterX = canvas.width / 4;
+    const leftCenterY = 170; // Titik tengah untuk penempatan melingkar
+    const orbitRadius = 75; // Radius untuk menempatkan P dan R
 
-    // Draw three processes in a circle
-    for (let i = 0; i < 3; i++) {
-      const angle = (i * 2 * Math.PI) / 3 - Math.PI / 2;
-      const x = centerX + orbitRadius * Math.cos(angle);
-      const y = centerY + orbitRadius * Math.sin(angle);
+    // Definisikan posisi untuk Proses
+    const P1 = { x: leftCenterX, y: leftCenterY - orbitRadius, id: "P1" };
+    const P2 = {
+      x: leftCenterX + orbitRadius * Math.cos(Math.PI / 6),
+      y: leftCenterY + orbitRadius * Math.sin(Math.PI / 6),
+      id: "P2",
+    };
+    const P3 = {
+      x: leftCenterX - orbitRadius * Math.cos(Math.PI / 6),
+      y: leftCenterY + orbitRadius * Math.sin(Math.PI / 6),
+      id: "P3",
+    };
+    const processes = [P1, P2, P3];
 
+    // Definisikan posisi untuk Sumber Daya, sedikit di antara Proses
+    const R1 = {
+      x: (P1.x + P3.x) / 2 + 10,
+      y: (P1.y + P3.y) / 2 - 10,
+      id: "R1",
+    }; // Dekat P1 & P3
+    const R2 = {
+      x: (P1.x + P2.x) / 2 + 10,
+      y: (P1.y + P2.y) / 2 + 10,
+      id: "R2",
+    }; // Dekat P1 & P2
+    const R3 = { x: leftCenterX, y: leftCenterY + orbitRadius * 0.8, id: "R3" }; // Dekat P2 & P3
+    const resources = [R1, R2, R3];
+
+    // Gambar Proses (Lingkaran Biru)
+    processes.forEach((p) => {
       ctx.beginPath();
-      ctx.arc(x, y, processRadius, 0, 2 * Math.PI);
-      ctx.fillStyle = "#3b82f6";
+      ctx.arc(p.x, p.y, processRadius, 0, 2 * Math.PI);
+      ctx.fillStyle = "#3b82f6"; // Warna biru untuk proses
+      ctx.fill();
+      ctx.fillStyle = "#ffffff"; // Warna teks putih
+      ctx.font = "14px Arial";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(p.id, p.x, p.y);
+    });
+
+    // Gambar Sumber Daya (Kotak Merah - potensi deadlock)
+    resources.forEach((r) => {
+      ctx.beginPath();
+      ctx.rect(
+        r.x - resourceSize / 2,
+        r.y - resourceSize / 2,
+        resourceSize,
+        resourceSize
+      );
+      ctx.fillStyle = "#ef4444"; // Warna merah untuk sumber daya
       ctx.fill();
       ctx.fillStyle = "#ffffff";
-      ctx.fillText(`P${i + 1}`, x, y);
+      ctx.font = "14px Arial";
+      ctx.fillText(r.id, r.x, r.y);
+    });
 
-      // Draw resources between processes
-      const nextI = (i + 1) % 3;
-      const nextAngle = (nextI * 2 * Math.PI) / 3 - Math.PI / 2;
-      const nextX = centerX + orbitRadius * Math.cos(nextAngle);
-      const nextY = centerY + orbitRadius * Math.sin(nextAngle);
+    // Fungsi helper untuk menggambar panah
+    const drawArrow = (
+      fromX: number,
+      fromY: number,
+      toX: number,
+      toY: number,
+      color: string,
+      isRequest: boolean = false
+    ) => {
+      const headlen = 8; // panjang kepala panah
+      const dx = toX - fromX;
+      const dy = toY - fromY;
+      const angle = Math.atan2(dy, dx);
 
-      const resourceX = (x + nextX) / 2;
-      const resourceY = (y + nextY) / 2;
+      // Titik awal dan akhir garis sedikit di luar lingkaran/kotak
+      const fromRadius = isRequest ? processRadius : resourceSize / 2;
+      const toRadius = isRequest ? resourceSize / 2 : processRadius;
+
+      const startX = fromX + fromRadius * Math.cos(angle);
+      const startY = fromY + fromRadius * Math.sin(angle);
+      const endX = toX - toRadius * Math.cos(angle);
+      const endY = toY - toRadius * Math.sin(angle);
 
       ctx.beginPath();
-      ctx.rect(resourceX - 15, resourceY - 15, 30, 30);
-      ctx.fillStyle = "#ef4444";
-      ctx.fill();
-      ctx.fillStyle = "#ffffff";
-      ctx.fillText(`R${i + 1}`, resourceX, resourceY);
-
-      // Draw allocation arrow (Pi holds Ri)
-      ctx.beginPath();
-      ctx.moveTo(resourceX, resourceY);
-      ctx.lineTo(x, y);
-      ctx.strokeStyle = "#10b981";
+      ctx.moveTo(startX, startY);
+      ctx.lineTo(endX, endY);
+      ctx.strokeStyle = color;
       ctx.lineWidth = 2;
       ctx.stroke();
 
-      // Draw request arrow (Pi wants Ri+1)
+      // Kepala panah di endX, endY
       ctx.beginPath();
-      ctx.moveTo(x, y);
-      ctx.lineTo(resourceX, resourceY);
-      ctx.strokeStyle = "#ef4444";
-      ctx.lineWidth = 2;
-      ctx.stroke();
-    }
+      ctx.moveTo(endX, endY);
+      ctx.lineTo(
+        endX - headlen * Math.cos(angle - Math.PI / 6),
+        endY - headlen * Math.sin(angle - Math.PI / 6)
+      );
+      ctx.lineTo(
+        endX - headlen * Math.cos(angle + Math.PI / 6),
+        endY - headlen * Math.sin(angle + Math.PI / 6)
+      );
+      ctx.closePath();
+      ctx.fillStyle = color;
+      ctx.fill();
+    };
 
-    // Add text explaining the issue
+    // Menggambar Alokasi dan Permintaan yang Benar untuk Circular Wait:
+    // P1 memegang R1, meminta R2
+    drawArrow(R1.x, R1.y, P1.x, P1.y, "#10b981"); // Alokasi: R1 -> P1
+    drawArrow(P1.x, P1.y, R2.x, R2.y, "#ef4444", true); // Permintaan: P1 -> R2
+
+    // P2 memegang R2, meminta R3
+    drawArrow(R2.x, R2.y, P2.x, P2.y, "#10b981"); // Alokasi: R2 -> P2
+    drawArrow(P2.x, P2.y, R3.x, R3.y, "#ef4444", true); // Permintaan: P2 -> R3
+
+    // P3 memegang R3, meminta R1
+    drawArrow(R3.x, R3.y, P3.x, P3.y, "#10b981"); // Alokasi: R3 -> P3
+    drawArrow(P3.x, P3.y, R1.x, R1.y, "#ef4444", true); // Permintaan: P3 -> R1
+
+    // Teks penjelasan di bawah sisi kiri
+    const textYStartLeft = leftCenterY + orbitRadius + 45;
     ctx.font = "14px Arial";
     ctx.fillStyle = "#ef4444";
     ctx.textAlign = "center";
-    ctx.fillText("Circular chain of resource requests", canvas.width / 4, 280);
-    ctx.fillText("P1→R2→P2→R3→P3→R1→P1", canvas.width / 4, 300);
-    ctx.fillText("→ Deadlock", canvas.width / 4, 320);
+    ctx.fillText(
+      "Circular chain of resource requests:",
+      leftCenterX,
+      textYStartLeft
+    );
+    ctx.fillText("P1 holds R1, requests R2", leftCenterX, textYStartLeft + 20);
+    ctx.fillText("P2 holds R2, requests R3", leftCenterX, textYStartLeft + 35);
+    ctx.fillText("P3 holds R3, requests R1", leftCenterX, textYStartLeft + 50);
+    ctx.fillText("→ Deadlock", leftCenterX, textYStartLeft + 70);
 
-    // Right side: Without circular wait (no deadlock)
+    // Sisi Kanan: Tanpa Circular Wait (Pencegahan Diaktifkan)
+    // (Kode untuk sisi kanan bisa Anda pertahankan atau sesuaikan seperti di contoh saya sebelumnya)
+    // Bagian ini saya buat sama dengan kode asli Anda untuk sisi kanan, dengan penyesuaian warna
+    // berdasarkan `preventionEnabled` dan penggunaan `drawArrow` jika diinginkan.
+
     ctx.font = "16px Arial";
     ctx.fillStyle = "#000000";
     ctx.textAlign = "center";
     ctx.fillText("Without Circular Wait", (3 * canvas.width) / 4, 60);
 
-    // Draw processes in a line
     const rightCenterX = (3 * canvas.width) / 4;
 
     for (let i = 0; i < 3; i++) {
@@ -566,38 +646,50 @@ export function PreventionVisualization({
 
       ctx.beginPath();
       ctx.arc(x, y, processRadius, 0, 2 * Math.PI);
-      ctx.fillStyle = preventionEnabled ? "#3b82f6" : "#d1d5db";
+      ctx.fillStyle = preventionEnabled ? "#3b82f6" : "#d1d5db"; // Warna proses
       ctx.fill();
       ctx.fillStyle = "#ffffff";
+      ctx.font = "14px Arial";
       ctx.fillText(`P${i + 1}`, x, y);
 
-      // Draw resources
-      const resourceX = rightCenterX - 80;
+      // Gambar sumber daya
+      const resourceX = rightCenterX - 80; // Di kiri proses
       const resourceY = y;
 
       ctx.beginPath();
-      ctx.rect(resourceX - 15, resourceY - 15, 30, 30);
-      ctx.fillStyle = preventionEnabled ? "#10b981" : "#d1d5db";
+      ctx.rect(
+        resourceX - resourceSize / 2,
+        resourceY - resourceSize / 2,
+        resourceSize,
+        resourceSize
+      );
+      ctx.fillStyle = preventionEnabled ? "#10b981" : "#d1d5db"; // Warna resource
       ctx.fill();
       ctx.fillStyle = "#ffffff";
+      ctx.font = "14px Arial";
       ctx.fillText(`R${i + 1}`, resourceX, resourceY);
 
-      // Draw allocation arrow
-      ctx.beginPath();
-      ctx.moveTo(resourceX + 15, resourceY);
-      ctx.lineTo(x - processRadius, y);
-      ctx.strokeStyle = preventionEnabled ? "#10b981" : "#d1d5db";
-      ctx.lineWidth = 2;
-      ctx.stroke();
+      // Gambar panah alokasi: R(i+1) -> P(i+1)
+      drawArrow(
+        resourceX,
+        resourceY,
+        x,
+        y,
+        preventionEnabled ? "#10b981" : "#a1a1aa"
+      );
     }
 
-    // Add text explaining the solution
+    const textYStartRight = leftCenterY + orbitRadius + 60; // Samakan posisi y teks
     ctx.font = "14px Arial";
-    ctx.fillStyle = preventionEnabled ? "#10b981" : "#d1d5db";
+    ctx.fillStyle = preventionEnabled ? "#10b981" : "#000000"; // Warna teks sesuai kondisi
     ctx.textAlign = "center";
-    ctx.fillText("Resources are numbered and", rightCenterX, 280);
-    ctx.fillText("processes request in order", rightCenterX, 300);
-    ctx.fillText("→ No Deadlock Possible", rightCenterX, 320);
+    ctx.fillText("Resources are numbered and", rightCenterX, textYStartRight);
+    ctx.fillText(
+      "processes request in order",
+      rightCenterX,
+      textYStartRight + 15
+    );
+    ctx.fillText("→ No Deadlock Possible", rightCenterX, textYStartRight + 35);
   };
 
   return (
