@@ -24,7 +24,7 @@ export default function Home() {
           Deadlock Simulation System
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Interactive visualizations of deadlock concepts in operating systems
+          Visualisasi Interaktif
         </p>
       </div>
 
