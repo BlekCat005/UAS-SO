@@ -31,35 +31,35 @@ export default function Home() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <SimulationCard
           title="Deadlock Detection"
-          description="Visualize how deadlocks occur and how to detect them in resource allocation graphs"
+          description="Visualisasikan bagaimana deadlock terjadi dan cara mendeteksinya dalam graf alokasi sumber daya."
           icon={<Lock className="h-8 w-8 text-red-500" />}
           href="/detection"
         />
 
         <SimulationCard
           title="Deadlock Prevention"
-          description="Explore techniques to prevent deadlocks by denying one of the four necessary conditions"
+          description="Jelajahi teknik untuk mencegah deadlock dengan meniadakan salah satu dari empat kondisi yang diperlukan."
           icon={<ShieldAlert className="h-8 w-8 text-blue-500" />}
           href="/prevention"
         />
 
         <SimulationCard
           title="Deadlock Avoidance"
-          description="Simulate the Banker's Algorithm and safe state analysis to avoid deadlocks"
+          description="Simulasikan Algoritma Banker dan analisis state aman untuk menghindari deadlock."
           icon={<ShieldCheck className="h-8 w-8 text-green-500" />}
           href="/avoidance"
         />
 
         <SimulationCard
           title="Deadlock Recovery"
-          description="Learn how systems can recover from deadlocks through process termination or resource preemption"
+          description="Pelajari bagaimana sistem dapat pulih dari deadlock melalui terminasi proses atau preemption sumber daya."
           icon={<AlertTriangle className="h-8 w-8 text-yellow-500" />}
           href="/recovery"
         />
 
         <SimulationCard
           title="Deadlock Ignorance"
-          description="Understand the ostrich algorithm and when ignoring deadlocks might be appropriate"
+          description="Pahami algoritma ostrich dan kapan deadlock ignorance mungkin tepat dilakukan."
           icon={<XCircle className="h-8 w-8 text-purple-500" />}
           href="/ignorance"
         />
